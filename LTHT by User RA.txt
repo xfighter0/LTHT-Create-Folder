@@ -1,0 +1,71 @@
+Created by User RA
+
+Private Sub Unit_LT_Click()
+
+'main folder on the desktop
+ Dim mainFolder As String
+ mainFolder = "User location address"
+    
+'Name new folder
+ Dim newFolderName As String
+ newFolderName = "New Unit LT"
+    
+'store the full path of the new folder
+ Dim fullNewFolderPath As String
+    
+'check if folder name already exists
+ Dim counter As Integer
+ counter = 1
+
+'File paths for Excel and config files
+Dim excelSource As String
+Dim cfgSource As String
+Dim excelTarget As String
+Dim cfgTarget As String
+Dim i As Integer
+
+'Make sure the main folder exists. If not, create it.
+If Dir(mainFolder, vbDirectory) = "" Then
+MkDir mainFolder
+End If
+
+fullNewFolderPath = mainFolder & "\" & newFolderName
+
+'If folder with this name exists, add numbers to make a new one
+Do While Dir(fullNewFolderPath, vbDirectory) <> ""
+fullNewFolderPath = mainFolder & "\" & newFolderName & " " & counter
+counter = counter + 1
+Loop
+
+'create new folder
+MkDir fullNewFolderPath
+
+'location copy file
+excelSource = "Your excel sources location.xls"
+cfgSource = "Your config file location.cfg"
+
+'Check Excel exists
+If Dir(excelSource) = "" Then
+MsgBox "Excel file not found. Please check the file path.", vbCritical
+Exit Sub
+End If
+
+'Check if config file exists
+If Dir(cfgSource) = "" Then
+MsgBox "Config file not found. Please check the file path.", vbCritical
+Exit Sub
+End If
+
+'Copy Excel file into the new folder
+excelTarget = fullNewFolderPath & "Your excel sources location.xls"
+FileCopy excelSource, excelTarget
+
+'Copy 4 config files
+For i = 1 To 4
+cfgTarget = fullNewFolderPath & "Your config file location" & i & ".cfg"
+FileCopy cfgSource, cfgTarget
+Next i
+
+MsgBox "Folder created: " & fullNewFolderPath & vbCrLf & "Files have been copied.", vbInformation
+
+End Sub
