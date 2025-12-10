@@ -1,2 +1,2 @@
 # LTHT-Create-Folder
-Using Microsoft Visual Basic 6.0
+Creating folder with auto copied files using Microsoft Visual Basic 6.0
